@@ -1,61 +1,130 @@
-// Function to load HTML components (e.g., navbar, footer)
+/*****************************************************************/
+/*                     MAIN JAVASCRIPT                          */
+/*****************************************************************/
+
+/* 
+   THIS SCRIPT INITIALIZES THE APPLICATION AND HANDLES DYNAMIC 
+   LOADING OF HTML COMPONENTS AND JAVASCRIPT FILES FOR ROUTES. 
+*/
+
+/* ------------------------- INITIALIZE ALL COMPONENTS ------------------------- */
+
+/* 
+   FUNCTION TO LOAD HTML COMPONENTS (E.G., NAVBAR AND FOOTER)
+   THIS FUNCTION FETCHES THE HTML FILE AND INSERTS IT INTO THE 
+   SPECIFIED ELEMENT IN THE DOM.
+*/
 function loadComponent(elementId, filePath) {
   fetch(filePath)
     .then((response) => response.text())
     .then((data) => {
       document.getElementById(elementId).innerHTML = data;
       if (elementId === "navbar") {
-        // Dispatch a custom event when navbar is loaded
+        // DISPATCH A CUSTOM EVENT WHEN THE NAVBAR IS LOADED
         window.dispatchEvent(new Event("navbarLoaded"));
       }
     })
     .catch((error) => console.error(`Error loading ${filePath}:`, error));
 }
 
-// Simple Router function to handle page navigation
+/* 
+   FUNCTION TO LOAD JAVASCRIPT FILES DYNAMICALLY
+   THIS FUNCTION AVOIDS EXECUTING SOME JAVASCRIPT FILES 
+   BEFORE THE MAIN JAVASCRIPT, ENSURING THEY LOAD IN THE 
+   CORRECT ORDER.
+*/
+function loadScript(filePath) {
+  return new Promise((resolve, reject) => {
+    const script = document.createElement("script");
+    script.src = filePath;
+    script.onload = () => resolve();
+    script.onerror = () =>
+      reject(new Error(`Failed to load script ${filePath}`));
+    document.head.appendChild(script);
+  });
+}
+
+/* 
+   ROUTER FUNCTION TO HANDLE DYNAMIC LOADING OF ROUTES
+   THIS FUNCTION DETERMINES WHICH PAGE TO LOAD BASED ON THE 
+   URL HASH AND FETCHES THE APPROPRIATE HTML AND SCRIPT.
+*/
 function router() {
   const app = document.getElementById("app");
-  const hash = window.location.hash.substring(1) || "home"; // Default to home if no hash
-  app.innerHTML = "";
+  const hash = window.location.hash.substring(1) || "home"; // GET THE HASH FROM THE URL
+  app.innerHTML = ""; // CLEAR PREVIOUS CONTENT
 
+  // DEFINE ROUTES FOR THE APPLICATION
   const routes = {
     dashboard: {
       title: "Dashboard",
-      content: "<h2>Dashboard</h2><p>Welcome to the dashboard!</p>",
+      filePath: "/pages/dashboard.html", // HTML FILE PATH
+      scriptPath: "/js/dashboard.js", // JAVASCRIPT FILE PATH
     },
     budget: {
       title: "Budget",
-      content:
-        "<h2>Budget</h2><p>Budget information will be displayed here.</p>",
+      filePath: "/pages/budget.html",
     },
     projects: {
       title: "Projects",
-      content:
-        "<h2>Projects</h2><p>Project information will be displayed here.</p>",
+      filePath: "/pages/projects.html",
     },
     home: {
       title: "Welcome",
-      content:
-        "<h2>Welcome</h2><p>Select a section from the navigation menu.</p>",
+      filePath: "/pages/home.html",
     },
   };
 
-  // Default to "home" if hash is not recognized
+  // DEFAULT TO "home" IF THE HASH IS NOT RECOGNIZED
   const route = routes[hash] || routes["home"];
 
-  // SET PAGE DETAILS
-  app.innerHTML = route.content;
+  // FETCH AND LOAD THE PAGE CONTENT FROM THE FILEPATH
+  fetch(route.filePath)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(
+          `Error loading ${route.filePath}: ${response.statusText}`
+        );
+      }
+      return response.text();
+    })
+    .then((data) => {
+      // INSERT FETCHED HTML CONTENT INTO THE #app DIV
+      app.innerHTML = data;
+      document.title = route.title;
+
+      // IF THE DASHBOARD IS LOADED, LOAD THE SCRIPT
+      if (hash === "dashboard") {
+        return loadScript(route.scriptPath);
+      }
+    })
+    .then(() => {
+      // CALL THE INITIALIZATION FUNCTIONS FOR THE DASHBOARD
+      if (hash === "dashboard") {
+        renderBudgetData();
+        renderProjectList();
+        renderCitizenFeedback();
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+      app.innerHTML =
+        "<h2>Error loading page content</h2><p>Sorry, the content could not be loaded.</p>";
+    });
 }
 
-// Initialize application
+/* ----------------------------------------------------------------- */
+/*                       INITIALIZE THE APPLICATION                  */
+/* ----------------------------------------------------------------- */
 function initializeApp() {
+  // LOAD NAVBAR AND FOOTER COMPONENTS
   loadComponent("navbar", "/components/navbar.html");
   loadComponent("footer", "/components/footer.html");
 
-  // INITIAL ROUTER-  > LOADS THE ROUTER
+  // INITIALIZE ROUTER AND LISTEN FOR HASH CHANGES
   window.addEventListener("hashchange", router);
-  router();
+  router(); // CALL ONCE ON PAGE LOAD
 }
 
-// RUN THE APP WHEN DOM IS LOADED
+// ------------------------ RUN THE APP WHEN DOM IS LOADED ------------------------
 document.addEventListener("DOMContentLoaded", initializeApp);

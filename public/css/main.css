@@ -1,8 +1,59 @@
-body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
-    background-image: linear-gradient(to bottom, #2e001a, #2c0221, #290629, #230b30, #1a1037, #14183f, #0c2046, #00274c, #003353, #003f55, #004953, #00534e);
+
+:root {
+  /* Theme Colors */
+  --color-dark-blue: #141c34;
+  --color-white: #f6f8ff;
+  --color-dark: #000212;
+  --color-light-blue: #5f8df7;
+
+  /* Background Colors */
+  --bg-primary: var(--color-dark-blue);
+  --bg-secondary: var(--color-white);
+  --bg-accent: var(--color-light-blue);
+  --bg-dark: var(--color-dark);
+
+  /* Text Colors */
+  --text-primary: var(--color-white);
+  --text-secondary: var(--color-dark-blue);
+  --text-dark: var(--color-dark);
+  --text-accent: var(--color-light-blue);
+
+  /* Border Colors */
+  --border-primary: var(--color-dark-blue);
+  --border-accent: var(--color-light-blue);
+  --border-dark: var(--color-dark);
+
+  /* Button Colors */
+  --btn-bg-primary: var(--color-light-blue);
+  --btn-bg-secondary: var(--color-dark-blue);
+  --btn-bg-accent: var(--color-white);
+
+  /* Transition Colors */
+  --hover-bg-primary: var(--color-light-blue);
+  --hover-bg-accent: var(--color-dark-blue);
+  --hover-text-primary: var(--color-white);
 }
+
+
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  background-image: linear-gradient(
+    to bottom,
+    var(--color-dark),  
+    var(--color-dark-blue)  
+  );
+  color: var(--text-primary);  
+}
+
+#app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  align-items: center; 
+  background-color: var(--bg-secondary); 
+}
+

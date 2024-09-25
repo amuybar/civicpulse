@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Governance Dashboard</title>
+    <link rel="stylesheet" href="../css/dashboard.css"> 
+</head>
+<body>
+    <div class="container">
+        <!-- Hero Section -->
+        <section id="hero">
+            <div class="hero-content">
+                <h1>Promoting Transparent Governance and Civic Engagement</h1>
+                <p>Explore how your government is functioning, track projects, and get involved.</p>
+                <input type="text" placeholder="Search for projects, bills, or more..." id="search-bar">
+                <button id="search-btn">Search</button>
+            </div>
+        </section>
+
+        <!-- Awareness Section -->
+        <section id="awareness">
+            <h2>Civic Education</h2>
+            <div class="awareness-list horizontal-scroll">
+                <!-- Multiple Civic Education Items -->
+                <div class="awareness-item">
+                    <h3>Know Your Rights</h3>
+                    <p>Learn about your fundamental rights and how to protect them.</p>
+                </div>
+                <div class="awareness-item">
+                    <h3>How Government Works</h3>
+                    <p>Understand the structure of government and how decisions are made.</p>
+                </div>
+                <div class="awareness-item">
+                    <h3>Why Voting Matters</h3>
+                    <p>Discover the importance of participating in elections and your role in democracy.</p>
+                </div>
+                <!-- Add more items as needed -->
+            </div>
+            <button class="more-btn">More Civic Education</button>
+        </section>
+
+        <!-- Budget Tracking Section -->
+        <section id="budget-tracking">
+            <h2>Budget Tracking</h2>
+            <div>
+                <p>Total Budget: <span id="total-budget"></span></p>
+                <p>Amount Spent: <span id="spent-amount"></span></p>
+                <p>Remaining Amount: <span id="remaining-amount"></span></p>
+            </div>
+        </section>
+
+        <!-- Bills Section -->
+        <section id="bills">
+            <h2>Parliament and Senate Bills</h2>
+            <div class="bills-list">
+                <!-- Current Bills -->
+                <div class="bill-category">
+                    <h3>Current Bills</h3>
+                    <ul>
+                        <li>Healthcare Reform Bill</li>
+                        <li>Tax Reduction Bill</li>
+                    </ul>
+                </div>
+                <!-- Past Bills -->
+                <div class="bill-category">
+                    <h3>Past Bills</h3>
+                    <ul>
+                        <li>Education Funding Bill</li>
+                        <li>Infrastructure Bill</li>
+                    </ul>
+                </div>
+                <!-- Proposed Bills -->
+                <div class="bill-category">
+                    <h3>Proposed Bills</h3>
+                    <ul>
+                        <li>Climate Change Mitigation Bill</li>
+                        <li>Digital Rights Protection Bill</li>
+                    </ul>
+                </div>
+            </div>
+            <button class="more-btn">View All Bills</button>
+        </section>
+
+        <!-- Corruption Map Section -->
+        <section id="corruption-map">
+            <h2>Corruption Map of Kenya</h2>
+            <div id="map-container">
+                <!-- Interactive Kenya Map Placeholder -->
+                <p>Map of Kenya divided by counties with corruption index represented by colors</p>
+                <!-- The actual map will be rendered here via JavaScript -->
+            </div>
+            <button class="more-btn">Learn More About Corruption Index</button>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects">
+            <h2>Projects</h2>
+            <div id="projects-list">
+                <!-- Project data will be dynamically inserted here by JavaScript -->
+            </div>
+            <button class="more-btn">More Projects</button>
+        </section>
+
+        <!-- Citizen Feedback Section -->
+        <section id="feedback">
+            <h2>Citizen Feedback</h2>
+            <div id="feedback-list">
+                <!-- Feedback data will be dynamically inserted here by JavaScript -->
+            </div>
+        </section>
+
+        <!-- Join Communities Section -->
+        <section id="join-communities">
+            <h2>Join Governance Communities</h2>
+            <p>Connect with like-minded citizens and take part in community-driven governance initiatives.</p>
+            <button id="join-btn">Join a Community</button>
+        </section>
+
+        <!-- Related Figures Section -->
+        <section id="related-figures">
+            <h2>Related Governance Figures</h2>
+            <div class="figures-list">
+                <!-- Example Figures -->
+                <div class="figure-item">
+                    <h3>Government Expenditure</h3>
+                    <p>Total spent on projects this year: <strong>$5 Billion</strong></p>
+                </div>
+                <div class="figure-item">
+                    <h3>Active Community Members</h3>
+                    <p>Engaged citizens: <strong>15,000</strong></p>
+                </div>
+                <!-- Add more figures dynamically as needed -->
+            </div>
+        </section>
+
+        <!-- Signup Section -->
+        <section id="signup">
+            <h2>Stay Updated</h2>
+            <p>Sign up to receive the latest news on government projects, bills, and community events.</p>
+            <form id="signup-form">
+                <input type="email" placeholder="Enter your email" required>
+                <button type="submit">Sign Up</button>
+            </form>
+        </section>
+    </div>
+
+    <script src="../js/dashboard.js" defer></script> 
+</body>
+</html>

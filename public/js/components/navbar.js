@@ -2,61 +2,58 @@ function initializeNavbar() {
   const menuIcon = document.querySelector("#open-menu");
   const closeIcon = document.querySelector("#close-menu");
   const navbarLinks = document.querySelector(".navbar-links");
+  const navbar = document.querySelector(".navbar");
 
+  // Toggles the menu open/close states
   function toggleMenu() {
     navbarLinks.classList.toggle("active");
     menuIcon.classList.toggle("active");
     closeIcon.classList.toggle("active");
-    console.log("Menu toggled");
   }
 
-  if (menuIcon) {
+  // Add event listener to open menu button if found
+  if (menuIcon && closeIcon) {
     menuIcon.addEventListener("click", toggleMenu);
-    console.log("Menu icon event listener added");
-  } else {
-    console.error("Menu icon not found");
-  }
-
-  if (closeIcon) {
     closeIcon.addEventListener("click", toggleMenu);
-    console.log("Close icon event listener added");
+    console.log("Menu and Close icon event listeners added");
   } else {
-    console.error("Close icon not found");
+    console.error("Menu or Close icon not found");
   }
 
+  // Close the menu when a link is clicked
   if (navbarLinks) {
     navbarLinks.querySelectorAll("a").forEach((link) => {
       link.addEventListener("click", () => {
         if (navbarLinks.classList.contains("active")) {
-          toggleMenu();
+          toggleMenu(); // Close menu after clicking a link
         }
       });
     });
-    console.log("Link click listeners added");
+    console.log("Navbar link click listeners added");
   } else {
     console.error("Navbar links not found");
   }
 
-  // Add scroll effect
-  window.addEventListener("scroll", () => {
-    const navbar = document.querySelector(".navbar");
-    if (navbar) {
-      if (window.scrollY > 50) {
-        navbar.style.background = "rgba(58, 28, 113, 0.9)";
-        navbar.style.boxShadow = "0 2px 10px rgba(0, 0, 0, 0.2)";
+  // Add scroll effect for changing navbar background and shadow
+  if (navbar) {
+    window.addEventListener("scroll", () => {
+      const scrollY = window.scrollY;
+      if (scrollY > 50) {
+        navbar.classList.add("scrolled");
       } else {
-        navbar.style.background =
-          "linear-gradient(135deg, #3a1c71, #d76d77, #ffaf7b)";
-        navbar.style.boxShadow = "0 2px 10px rgba(0, 0, 0, 0.1)";
+        navbar.classList.remove("scrolled");
       }
-    }
-  });
+    });
+    console.log("Scroll event listener added for navbar");
+  } else {
+    console.error("Navbar not found");
+  }
 }
 
-// Listen for the custom event that signals the navbar has been loaded
+// Initialize navbar on `navbarLoaded` event
 window.addEventListener("navbarLoaded", initializeNavbar);
 
-// Also initialize on DOMContentLoaded in case the event was missed
+// Fallback to DOMContentLoaded in case `navbarLoaded` event is missed
 document.addEventListener("DOMContentLoaded", () => {
   if (document.querySelector(".navbar")) {
     initializeNavbar();
