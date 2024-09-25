@@ -1,0 +1,17 @@
+[
+  {
+    "name": "Road Construction",
+    "status": "In Progress",
+    "deadline": "2024-12-31"
+  },
+  {
+    "name": "Healthcare Improvement",
+    "status": "Completed",
+    "deadline": "2024-06-30"
+  },
+  {
+    "name": "Education Infrastructure",
+    "status": "In Progress",
+    "deadline": "2025-01-15"
+  }
+]
