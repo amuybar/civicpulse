@@ -36,15 +36,21 @@ function router() {
   const routes = {
     dashboard: {
       title: "Dashboard",
-      filePath: "/pages/dashboard.html", 
-      scriptPath: "/js/dashboard.js", 
-      initFunction: "initializeDashboard", 
+      filePath: "/pages/dashboard.html",
+      scriptPath: "/js/dashboard.js",
+      initFunction: "initializeDashboard",
     },
     budget: {
       title: "Budget",
       filePath: "/pages/budget.html",
       scriptPath: "/js/budget.js",
       initFunction: "initializeBudget",
+    },
+    auth: {
+      title: "Join The Movement",
+      filePath: "/pages/auth.html",
+      scriptPath: "/js/auth.js",
+      // initFunction: "initializeBudget",
     },
     projects: {
       title: "Projects",
@@ -54,7 +60,7 @@ function router() {
     },
     home: {
       title: "Welcome To Civic Pulse",
-      filePath: "/pages/dashboard.html", 
+      filePath: "/pages/dashboard.html",
       scriptPath: "/js/dashboard.js",
       initFunction: "initializeDashboard",
     },

@@ -1,0 +1,155 @@
+:root {
+    --primary-color: #3498db;
+    --secondary-color: #2c3e50;
+    --background-color: #ecf0f1;
+    --text-color: #34495e;
+    --error-color: #e74c3c;
+    --success-color: #2ecc71;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.auth-box {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+    overflow: hidden;
+}
+
+.tabs {
+    display: flex;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 15px;
+    background-color: #f1f1f1;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.tab-btn.active {
+    background-color: #fff;
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.tab-content {
+    padding: 30px;
+}
+
+.tab-pane {
+    display: none;
+}
+
+.tab-pane.active {
+    display: block;
+}
+
+h2 {
+    margin-bottom: 20px;
+    color: var(--secondary-color);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #2980b9;
+}
+
+.btn-primary {
+    width: 100%;
+}
+
+.forgot-password {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.forgot-password a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.social-auth {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #ddd;
+}
+
+.social-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.btn-social {
+    flex: 1;
+    margin: 0 5px;
+}
+
+.btn-facebook {
+    background-color: #3b5998;
+}
+
+.btn-google {
+    background-color: #db4437;
+}
+
+@media (max-width: 480px) {
+    .auth-box {
+        max-width: 100%;
+    }
+}

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Governance Dashboard - Authentication</title>
+    <link rel="stylesheet" href="./css/auth.css">
+    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="auth-box">
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="signin" aria-selected="true">Sign In</button>
+                <button class="tab-btn" data-tab="signup" aria-selected="false">Sign Up</button>
+            </div>
+            <div class="tab-content">
+                <div class="tab-pane active" id="signin" aria-hidden="false">
+                    <h2>Welcome Back</h2>
+                    <form id="signin-form">
+                        <div class="form-group">
+                            <label for="signin-email">Email</label>
+                            <input type="email" id="signin-email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signin-password">Password</label>
+                            <input type="password" id="signin-password" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Sign In</button>
+                    </form>
+                    <div class="forgot-password">
+                        <a href="#">Forgot Password?</a>
+                    </div>
+                </div>
+                <div class="tab-pane" id="signup" aria-hidden="true">
+                    <h2>Create Account</h2>
+                    <form id="signup-form">
+                        <div class="form-group">
+                            <label for="signup-name">Full Name</label>
+                            <input type="text" id="signup-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signup-email">Email</label>
+                            <input type="email" id="signup-email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signup-password">Password</label>
+                            <input type="password" id="signup-password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signup-confirm-password">Confirm Password</label>
+                            <input type="password" id="signup-confirm-password" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Sign Up</button>
+                    </form>
+                </div>
+            </div>
+            <div class="social-auth">
+                <p>Or connect with</p>
+                <div class="social-buttons">
+                    <button class="btn btn-social btn-facebook">
+                        <i class="fab fa-facebook-f"></i> Facebook
+                    </button>
+                    <button class="btn btn-social btn-google">
+                        <i class="fab fa-google"></i> Google
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="./js/auth.js"></script>
+  
+</body>
+</html>
