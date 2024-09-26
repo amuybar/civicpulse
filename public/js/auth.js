@@ -1,3 +1,5 @@
+const { response } = require("express");
+
 // Tab switching logic
 const tabBtns = document.querySelectorAll(".tab-btn");
 const tabPanes = document.querySelectorAll(".tab-pane");
@@ -36,7 +38,7 @@ function isValidEmail(email) {
 
 /* Function to handle form submission for Sign In */
 function handleSignIn(event) {
-  event.preventDefault(); // Prevent default form submission
+  event.preventDefault(); 
 
   const email = document.getElementById("signin-email").value;
   const password = document.getElementById("signin-password").value;
@@ -47,18 +49,41 @@ function handleSignIn(event) {
     return;
   }
 
-  // Simulate an API call for sign-in (replace with your actual API call)
-  console.log("Signing in with:", { email, password });
-  // Add your sign-in logic here (e.g., API request)
+  // Prepare the data to send to the server
+  const formData = {
+    email: email,
+    password: password,
+  };
 
-  alert("Sign In Successful!"); // Replace this with your actual logic
+  // Send an API request to /api/user/login
+  fetch("/api/user/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(formData),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (response.ok) {
+        alert("Sign In Successful!");
+        window.location.href = "/dashboard";
+        console.log(response)
+      } else {
+        alert(`Login Failed: ${data.message}`);
+      }
+    })
+    .catch((error) => {
+      console.error("Error during sign-in:", error);
+      alert("An error occurred during sign-in.");
+    });
 }
 
 /* Function to handle form submission for Sign Up */
 function handleSignUp(event) {
   event.preventDefault(); // Prevent default form submission
 
-  const name = document.getElementById("signup-name").value;
+  const username = document.getElementById("signup-name").value;
   const email = document.getElementById("signup-email").value;
   const password = document.getElementById("signup-password").value;
   const confirmPassword = document.getElementById(
@@ -76,11 +101,34 @@ function handleSignUp(event) {
     return;
   }
 
-  // Simulate an API call for sign-up (replace with your actual API call)
-  console.log("Signing up with:", { name, email, password });
-  // Add your sign-up logic here (e.g., API request)
+  // Prepare the data to send to the server
+  const formData = {
+    username: username,
+    email: email,
+    password: password,
+  };
 
-  alert("Sign Up Successful!"); // Replace this with your actual logic
+  // Send an API request to /api/user/register
+  fetch("/api/user/register", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(formData),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (response.ok) {
+        alert("User registered successfully");
+        window.location.href = "/login";
+      } else {
+        alert(`Registration failed: ${data.message}`);
+      }
+    })
+    .catch((error) => {
+      console.error("Error during sign-up:", error);
+      alert("An error occurred during sign-up.");
+    });
 }
 
 /* Function to initialize the authentication page */
