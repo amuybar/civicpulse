@@ -1,3 +1,18 @@
+import { isUserLoggedIn } from "./functions/isAuth.js";
+
+
+function updateAuthLink() {
+  const authLink = document.getElementById("auth-link").querySelector("a");
+
+  if (isUserLoggedIn()) {
+    authLink.textContent = "Profile"; 
+    authLink.href = "#profile"; 
+  } else {
+    authLink.textContent = "Join"; 
+    authLink.href = "#auth"; 
+  }
+}
+
 function initializeNavbar() {
   const menuIcon = document.querySelector("#open-menu");
   const closeIcon = document.querySelector("#close-menu");
@@ -57,5 +72,6 @@ window.addEventListener("navbarLoaded", initializeNavbar);
 document.addEventListener("DOMContentLoaded", () => {
   if (document.querySelector(".navbar")) {
     initializeNavbar();
+    updateAuthLink();
   }
 });

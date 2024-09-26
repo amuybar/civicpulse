@@ -2,6 +2,8 @@
 /*                     MAIN JAVASCRIPT                          */
 /*****************************************************************/
 
+import { isUserLoggedIn} from "./functions/isAuth.js";
+
 /* ------------------------- HELPER FUNCTIONS ------------------------- */
 
 /* Function to load HTML components (e.g., Navbar, Footer) */
@@ -29,10 +31,10 @@ function loadScript(filePath) {
 /* Function to handle route changes and load the correct page */
 function router() {
   const app = document.getElementById("app");
-  const hash = window.location.hash.substring(1) || "home"; 
-  app.innerHTML = ""; 
+  const hash = window.location.hash.substring(1) || "home";
+  app.innerHTML = "";
 
-  // Define routes
+  // Define routes dynamically based on login status
   const routes = {
     dashboard: {
       title: "Dashboard",
@@ -45,12 +47,6 @@ function router() {
       filePath: "/pages/budget.html",
       scriptPath: "/js/budget.js",
       initFunction: "initializeBudget",
-    },
-    auth: {
-      title: "Join The Movement",
-      filePath: "/pages/auth.html",
-      scriptPath: "/js/auth.js",
-      // initFunction: "initializeBudget",
     },
     projects: {
       title: "Projects",
@@ -65,6 +61,24 @@ function router() {
       initFunction: "initializeDashboard",
     },
   };
+
+  // Conditionally add auth route based on whether the user is logged in
+  if (!isUserLoggedIn()) {
+    routes.auth = {
+      title: "Sign In",
+      filePath: "/pages/auth.html",
+      scriptPath: "/js/auth.js",
+      initFunction: "initializeAuth",
+    };
+  } else {
+    routes.auth = {
+      title: "Join The Movement",
+      filePath: "/pages/auth.html",
+      scriptPath: "/js/auth.js",
+      initFunction: "initializeAuth",
+    };
+  }
+
   // Default to 'home' if the hash is not recognized
   const route = routes[hash] || routes["home"];
 
@@ -107,5 +121,8 @@ function initializeApp() {
   // Call router on initial load
   router();
 }
- // Run initializeApp when DOM is loaded
+
+// Run initializeApp when DOM is loaded
 document.addEventListener("DOMContentLoaded", initializeApp);
+
+
