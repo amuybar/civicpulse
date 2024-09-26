@@ -1,5 +1,3 @@
-const { response } = require("express");
-
 // Tab switching logic
 const tabBtns = document.querySelectorAll(".tab-btn");
 const tabPanes = document.querySelectorAll(".tab-pane");
@@ -30,6 +28,25 @@ tabBtns.forEach((btn) => {
 /*                     AUTHENTICATION JAVASCRIPT                 */
 /*****************************************************************/
 
+/* Function to display error messages */
+function displayErrorMessage(element, message) {
+  console.error("Error Message Displayed:", message); // Log error message
+  element.textContent = message;
+  element.style.display = 'block';
+}
+
+/* Function to hide error messages */
+function hideErrorMessage(element) {
+  element.textContent = '';
+  element.style.display = 'none';
+}
+
+/* Function to toggle loader visibility */
+function toggleLoader(loaderId, show) {
+  const loader = document.getElementById(loaderId);
+  loader.style.display = show ? 'block' : 'none';
+}
+
 /* Function to validate email format */
 function isValidEmail(email) {
   const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -40,12 +57,25 @@ function isValidEmail(email) {
 function handleSignIn(event) {
   event.preventDefault(); 
 
+  // Hide any previous error messages
+  hideErrorMessage(document.getElementById("signin-email-error"));
+  hideErrorMessage(document.getElementById("signin-password-error"));
+  hideErrorMessage(document.getElementById("signin-general-error"));
+
   const email = document.getElementById("signin-email").value;
   const password = document.getElementById("signin-password").value;
 
+  console.log("Sign In Email:", email); // Log email
+  console.log("Sign In Password:", password); // Log password
+
   // Validate input
   if (!isValidEmail(email)) {
-    alert("Please enter a valid email address.");
+    displayErrorMessage(document.getElementById("signin-email-error"), "Please enter a valid email address.");
+    return;
+  }
+
+  if (password.trim() === "") {
+    displayErrorMessage(document.getElementById("signin-password-error"), "Password is required.");
     return;
   }
 
@@ -55,6 +85,9 @@ function handleSignIn(event) {
     password: password,
   };
 
+  // Show loader
+  toggleLoader('signin-loader', true);
+
   // Send an API request to /api/user/login
   fetch("/api/user/login", {
     method: "POST",
@@ -63,19 +96,27 @@ function handleSignIn(event) {
     },
     body: JSON.stringify(formData),
   })
-    .then((response) => response.json())
+    .then((response) => {
+      console.log("Sign In Response Status:", response.status); // Log response status
+      return response.json();
+    })
     .then((data) => {
-      if (response.ok) {
-        alert("Sign In Successful!");
+      // Hide loader
+      toggleLoader('signin-loader', false);
+
+      console.log("Sign In Response Data:", data); // Log response data
+
+      if (data.success) {
         window.location.href = "/dashboard";
-        console.log(response)
       } else {
-        alert(`Login Failed: ${data.message}`);
+        displayErrorMessage(document.getElementById("signin-general-error"), `Login Failed: ${data.message}`);
       }
     })
     .catch((error) => {
+      // Hide loader
+      toggleLoader('signin-loader', false);
       console.error("Error during sign-in:", error);
-      alert("An error occurred during sign-in.");
+      displayErrorMessage(document.getElementById("signin-general-error"), "An error occurred during sign-in.");
     });
 }
 
@@ -83,21 +124,36 @@ function handleSignIn(event) {
 function handleSignUp(event) {
   event.preventDefault(); // Prevent default form submission
 
+  // Hide any previous error messages
+  hideErrorMessage(document.getElementById("signup-name-error"));
+  hideErrorMessage(document.getElementById("signup-email-error"));
+  hideErrorMessage(document.getElementById("signup-password-error"));
+  hideErrorMessage(document.getElementById("signup-confirm-password-error"));
+  hideErrorMessage(document.getElementById("signup-general-error"));
+
   const username = document.getElementById("signup-name").value;
   const email = document.getElementById("signup-email").value;
   const password = document.getElementById("signup-password").value;
-  const confirmPassword = document.getElementById(
-    "signup-confirm-password"
-  ).value;
+  const confirmPassword = document.getElementById("signup-confirm-password").value;
+
+  console.log("Sign Up Username:", username); // Log username
+  console.log("Sign Up Email:", email); // Log email
+  console.log("Sign Up Password:", password); // Log password
+  console.log("Confirm Password:", confirmPassword); // Log confirm password
 
   // Validate input
+  if (username.trim() === "") {
+    displayErrorMessage(document.getElementById("signup-name-error"), "Full name is required.");
+    return;
+  }
+
   if (!isValidEmail(email)) {
-    alert("Please enter a valid email address.");
+    displayErrorMessage(document.getElementById("signup-email-error"), "Please enter a valid email address.");
     return;
   }
 
   if (password !== confirmPassword) {
-    alert("Passwords do not match.");
+    displayErrorMessage(document.getElementById("signup-confirm-password-error"), "Passwords do not match.");
     return;
   }
 
@@ -108,6 +164,9 @@ function handleSignUp(event) {
     password: password,
   };
 
+  // Show loader
+  toggleLoader('signup-loader', true);
+
   // Send an API request to /api/user/register
   fetch("/api/user/register", {
     method: "POST",
@@ -116,18 +175,27 @@ function handleSignUp(event) {
     },
     body: JSON.stringify(formData),
   })
-    .then((response) => response.json())
+    .then((response) => {
+      console.log("Sign Up Response Status:", response.status); // Log response status
+      return response.json();
+    })
     .then((data) => {
-      if (response.ok) {
-        alert("User registered successfully");
+      // Hide loader
+      toggleLoader('signup-loader', false);
+
+      console.log("Sign Up Response Data:", data); // Log response data
+
+      if (data.success) {
         window.location.href = "/login";
       } else {
-        alert(`Registration failed: ${data.message}`);
+        displayErrorMessage(document.getElementById("signup-general-error"), `Registration failed: ${data.message}`);
       }
     })
     .catch((error) => {
+      // Hide loader
+      toggleLoader('signup-loader', false);
       console.error("Error during sign-up:", error);
-      alert("An error occurred during sign-up.");
+      displayErrorMessage(document.getElementById("signup-general-error"), "An error occurred during sign-up.");
     });
 }
 

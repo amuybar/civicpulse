@@ -15,46 +15,60 @@
                 <button class="tab-btn" data-tab="signup" aria-selected="false">Sign Up</button>
             </div>
             <div class="tab-content">
+                <!-- Sign In -->
                 <div class="tab-pane active" id="signin" aria-hidden="false">
                     <h2>Welcome Back</h2>
                     <form id="signin-form">
                         <div class="form-group">
                             <label for="signin-email">Email</label>
                             <input type="email" id="signin-email" required>
+                            <span class="error-message" id="signin-email-error"></span>
                         </div>
                         <div class="form-group">
                             <label for="signin-password">Password</label>
                             <input type="password" id="signin-password" required>
+                            <span class="error-message" id="signin-password-error"></span>
                         </div>
                         <button type="submit" class="btn btn-primary">Sign In</button>
                     </form>
                     <div class="forgot-password">
                         <a href="#">Forgot Password?</a>
                     </div>
+                    <div class="loader" id="signin-loader"></div>
+                    <div class="error-message" id="signin-general-error"></div>
                 </div>
+
+                <!-- Sign Up -->
                 <div class="tab-pane" id="signup" aria-hidden="true">
                     <h2>Create Account</h2>
                     <form id="signup-form">
                         <div class="form-group">
                             <label for="signup-name">Full Name</label>
                             <input type="text" id="signup-name" required>
+                            <span class="error-message" id="signup-name-error"></span>
                         </div>
                         <div class="form-group">
                             <label for="signup-email">Email</label>
                             <input type="email" id="signup-email" required>
+                            <span class="error-message" id="signup-email-error"></span>
                         </div>
                         <div class="form-group">
                             <label for="signup-password">Password</label>
                             <input type="password" id="signup-password" required>
+                            <span class="error-message" id="signup-password-error"></span>
                         </div>
                         <div class="form-group">
                             <label for="signup-confirm-password">Confirm Password</label>
                             <input type="password" id="signup-confirm-password" required>
+                            <span class="error-message" id="signup-confirm-password-error"></span>
                         </div>
                         <button type="submit" class="btn btn-primary">Sign Up</button>
                     </form>
+                    <div class="loader" id="signup-loader"></div>
+                    <div class="error-message" id="signup-general-error"></div>
                 </div>
             </div>
+
             <div class="social-auth">
                 <p>Or connect with</p>
                 <div class="social-buttons">
@@ -69,6 +83,5 @@
         </div>
     </div>
     <script src="./js/auth.js"></script>
-  
 </body>
 </html>
